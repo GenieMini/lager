@@ -1,18 +1,22 @@
 // components/Stock.tsx
 import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
-import config from "../config/config.json";
+import productModel from "../models/products";
+import { Base, Typog } from '../styles';
 
-function StockList() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch(`${config.base_url}/products?api_key=${config.api_key}`)
-      .then(response => response.json())
-      .then(result => setProducts(result.data));
+function StockList({products, setProducts}) {
+  useEffect(async () => {
+    setProducts(await productModel.getProducts());
   }, []);
 
-  const list = products.map((product, index) => <Text key={index} style={{color: 'white'}}>{ product.name } - { product.stock }</Text>);
+  const list = products.map((product, index) => {
+    return <Text
+            key={index}
+            style={{ ...Typog.normal }}
+            >
+              { product.name } - { product.stock }
+            </Text>
+  });
 
   return (
     <View>
@@ -21,11 +25,11 @@ function StockList() {
   );
 }
 
-export default function Stock() {
+export default function Stock({products, setProducts}) {
   return (
-    <View>
+    <View style={Base.textBox}>
       <Text style={{color: 'cyan', fontSize: 24}}>Lagerförteckning</Text>
-      <StockList/>
+      <StockList products={products} setProducts={setProducts}/>
     </View>
   );
 }

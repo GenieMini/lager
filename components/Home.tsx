@@ -1,19 +1,20 @@
 // Home.tsx
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
 import Stock from '../components/Stock';
 import warehouse from '../assets/warehouse.jpg';
+import { Base, Typog } from '../styles';
 
-export default function Home() {
+export default function Home({products, setProducts}) {
   return (
-    <View style={styles.base}>
-      <Text style={styles.text}>Skruv Shop 3000</Text>
-      <Image source={warehouse}/>
-      <Stock />
-    </View>
-  );
+    <ScrollView style={Base.base1}>
+        <Text style={Typog.bigtext}>Lager-Appen</Text>
+        <Image source={warehouse} style={{ width: 320, height: 240, marginBottom: 28 }} />
+        <Stock products={products} setProducts={setProducts} />
+    </ScrollView>
+);
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   base: {
     flex: 1,
     backgroundColor: 'black',
@@ -26,4 +27,4 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
   }
-})
+}) */
