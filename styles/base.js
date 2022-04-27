@@ -1,7 +1,12 @@
 //
 export const base1 = {
     flex: 1,
-    backgroundColor: 'gray'
+    backgroundColor: 'white'
+};
+
+export const container = {
+    flex: 1,
+    backgroundColor: 'cyan'
 };
 
 export const textBox = {

@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Base, Typog } from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Home from "./components/Home";
 import Pick from "./components/Pick";
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ const routeIcons = {
 export default function App() {
   const [products, setProducts] = useState([]);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={Base.container}>
       <NavigationContainer>
         <Tab.Navigator  screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -30,34 +30,21 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveBackgroundColor: 'black',
+          tabBarInactiveBackgroundColor: 'black',
+          tabBarActiveTintColor: 'cyan',
           tabBarInactiveTintColor: 'gray',
         })}
         >
           <Tab.Screen name="Lager">
-            {() => <Home products={products} setProducts={setProducts} />}
+            {(props) => <Home {...props} products={products} setProducts={setProducts} />}
           </Tab.Screen>
-          <Tab.Screen name="Plock" component={Pick} />
+          <Tab.Screen name="Plock">
+            {(props) => <Pick {...props} products={products} setProducts={setProducts} />}
+          </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'cyan'
-  },
-  navi: {
-    backgroundColor: 'black'
-  },
-  text: {
-	  color: 'cyan',
-    fontSize: 42,
-    textShadowColor: 'cyan',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
-  }
-});

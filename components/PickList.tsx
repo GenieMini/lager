@@ -6,11 +6,20 @@ import productModel from "../models/products";
 
 //@ts-ignore
 export default function PickList({ route, navigation, setProducts }) {
+    const { reload } = route.params || false;
     const { order } = route.params;
     const [productsList, setProductsList] = useState([]);
 
-    useEffect(async () => {
+    if (reload) {
+        reloadProducts();
+    }
+
+    async function reloadProducts() {
         setProductsList(await productModel.getProducts());
+    }
+
+    useEffect(() => {
+        reloadProducts();
     }, []);
 
     async function pick() {
@@ -19,11 +28,13 @@ export default function PickList({ route, navigation, setProducts }) {
         navigation.navigate("List", { reload: true });
     }
 
-    const orderItemsList = order.order_items.map((item, index) => {
-        return <Text
-                key={index}
-                >
-                    {item.name} - {item.amount} - {item.location}
+    let inStock = true;
+    const orderItemsList = order.order_items.map((item: any, index: any) => {
+        if (item.amount > item.stock) {
+            inStock = false;
+        }
+        return <Text key={index} >
+                {item.name} - amount {item.amount} - @ {item.location} - stock {item.stock}
             </Text>;
     });
 
@@ -37,7 +48,12 @@ export default function PickList({ route, navigation, setProducts }) {
 
             {orderItemsList}
 
-            <Button title="Plocka order" onPress={pick} />
+            {inStock ? (
+                <Button title="Plocka order" onPress={pick} />
+            ) : (
+                <Text>Inte tillräckligt i lager</Text>
+            )}
+            
         </View>
     )
 };

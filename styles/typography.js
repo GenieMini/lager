@@ -16,7 +16,7 @@ export const header3 = {
 export const normal = {
     fontSize: 20,
     marginBottom: 28,
-    color: 'white'
+    color: 'black'
 };
 
 export const bigtext = {

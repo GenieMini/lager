@@ -4,12 +4,12 @@ import { Text, View } from 'react-native';
 import productModel from "../models/products";
 import { Base, Typog } from '../styles';
 
-function StockList({products, setProducts}) {
+function StockList({products, setProducts}: any) {
   useEffect(async () => {
     setProducts(await productModel.getProducts());
   }, []);
 
-  const list = products.map((product, index) => {
+  const list = products.map((product: any, index: any) => {
     return <Text
             key={index}
             style={{ ...Typog.normal }}
@@ -25,7 +25,7 @@ function StockList({products, setProducts}) {
   );
 }
 
-export default function Stock({products, setProducts}) {
+export default function Stock({products, setProducts}: any) {
   return (
     <View style={Base.textBox}>
       <Text style={{color: 'cyan', fontSize: 24}}>Lagerförteckning</Text>
