@@ -26,3 +26,7 @@ export const bigtext = {
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
 };
+
+export const label = {
+    fontSize: 24
+};

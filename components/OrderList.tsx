@@ -1,8 +1,8 @@
 // OrderList.tsx
 import { useState, useEffect } from 'react';
-import { View, Text, Button } from "react-native";
-import config from "../config/config.json";
+import { ScrollView, Text, Button } from "react-native";
 import orderModel from "../models/orders";
+import { Base, Typog } from '../styles';
 
 //@ts-ignore
 export default function OrderList({ route, navigation }) {
@@ -11,6 +11,7 @@ export default function OrderList({ route, navigation }) {
 
     if (reload) {
         reloadOrders();
+        route.params = false;
     }
 
     async function reloadOrders() {
@@ -36,9 +37,9 @@ export default function OrderList({ route, navigation }) {
         });
 
     return (
-        <View>
-            <Text>Ordrar redo att plockas</Text>
+        <ScrollView style={Base.base1}>
+            <Text style={{ ...Typog.header2 }}>Ordrar redo att plockas</Text>
             {listOfOrders}
-        </View>
+        </ScrollView>
     );
 }

@@ -12,12 +12,12 @@ const products = {
             console.log("Error: couldnt get products");
         }
     },
-    updateProduct: async function updateProduct(prods: any/* Partial<Product[]> */) {
+    updateProduct: async function updateProduct(productz: any/* Partial<Product[]> */) {
         try{
-            //prods.api_key = config.api_key;
+            productz.api_key = config.api_key;
 
             await fetch(`${config.base_url}/products?api_key=${config.api_key}`, {
-                body: JSON.stringify(prods),
+                body: JSON.stringify(productz),
                 headers: {
                     'content-type': 'application/json'
                 },
